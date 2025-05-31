@@ -1,0 +1,33 @@
+# Ignore Python bytecode files
+__pycache__/
+*.py[cod]
+
+# Ignore Colab/IPython notebook checkpoints
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+# Ignore model files
+*.pt
+
+# Ignore dataset files (optional if you don’t want to push them)
+#*.csv
+#*.json
+
+# Ignore Node.js dependencies
+node_modules/
+
+# Ignore environment files
+.env
+
+# Ignore VS Code settings
+.vscode/
+
+# Ignore OS-specific files
+.DS_Store
+
+# Ignore zip or archive files
+*.zip
+
+venv/
+.venv/
+

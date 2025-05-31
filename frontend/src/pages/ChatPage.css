@@ -1,0 +1,392 @@
+/* ========================================== */
+/*                GLOBAL VARIABLES            */
+/* ========================================== */
+:root {
+    /* Colors */
+    --primary-color: #008080; /* Deep Teal */
+    --primary-hover: #005f5f; /* Slightly darker teal */
+    --neutral-bg: #f5f5f5; /* Light Gray */
+    --neutral-dark: #333333; /* Dark Gray */
+    --neutral-text: #ffffff; /* White */
+    --neutral-overlay: rgba(0, 0, 0, 0.5); /* Black with opacity */
+    --neutral-border: #cccccc; /* Medium Gray */
+    --gradient-primary: linear-gradient(to right, #008080, #003366); /* Teal to Navy */
+    --gradient-secondary: linear-gradient(to right, #003366, #008080); /* Navy to Teal */
+  }
+  
+  /* ========================================== */
+  /*                MODAL STYLES                */
+  /* ========================================== */
+  .fixed-overlay {
+    background-color: var(--neutral-overlay);
+  }
+  
+  .shortcuts-modal {
+    background-color: var(--neutral-bg); /* Light Gray */
+    color: var(--neutral-dark); /* Dark Gray text */
+    border-radius: 8px;
+    padding: 16px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  }
+  
+  .shortcuts-heading {
+    color: var(--primary-color); /* Heading in Deep Teal */
+  }
+  
+  .close-button {
+    background-color: transparent;
+    color: var(--neutral-dark);
+    border-radius: 50%;
+    padding: 8px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .close-button:hover {
+    background-color: var(--neutral-border); /* Hover effect */
+  }
+  
+  /* ========================================== */
+  /*                BUTTON STYLES               */
+  /* ========================================== */
+  .shortcuts-button,
+  .custom-gradient-primary {
+    background: var(--gradient-primary);
+    color: var(--neutral-text);
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .shortcuts-button:hover {
+    background-color: var(--primary-hover);
+  }
+  
+  .keyboard-shortcut-key {
+    font-weight: 500;
+    color: var(--primary-color); /* Deep Teal */
+  }
+  
+  /* ========================================== */
+  /*                HEADER STYLES               */
+  /* ========================================== */
+  .custom-header {
+    background: var(--gradient-primary);
+    color: var(--neutral-text);
+    text-align: center;
+    padding: 16px 0;
+    font-size: 1.5rem;
+    font-weight: bold;
+    letter-spacing: 0.05em;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 50;
+    width: 100%;
+    position: relative;
+  }
+  
+  /* ========================================== */
+  /*                SIDEBAR STYLES              */
+  /* ========================================== */
+  .sidebar-option {
+    background-color: var(--neutral-bg);
+    transition: background-color 0.3s, color 0.3s;
+  }
+  
+  .sidebar-option:hover {
+    background-color: #e0e0e0; /* Slightly darker gray for hover */
+    color: var(--dark-text);
+  }
+  
+  .sidebar-option-selected {
+    background: var(--gradient-secondary);
+    color: var(--neutral-text);
+  }
+  
+  /* ========================================== */
+  /*              MODAL STYLES                  */
+  /* ========================================== */
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.5); /* Black with 50% opacity */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 50;
+  }
+  
+  .modal-container {
+    max-width: 600px;
+    width: 100%;
+    margin: 0 16px; /* mx-4 equivalent */
+    background-color: var(--neutral-bg);
+    border-radius: 8px;
+    padding: 16px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px; /* mb-4 equivalent */
+  }
+  
+  .modal-heading {
+    display: flex;
+    align-items: center;
+    gap: 8px; /* gap-2 equivalent */
+    font-size: 1.25rem; /* text-xl equivalent */
+    font-weight: bold;
+    color: var(--primary-color);
+  }
+  
+  .modal-close-button {
+    padding: 8px; /* p-1 equivalent */
+    border-radius: 50%;
+    background-color: transparent;
+    transition: background-color 0.3s ease;
+  }
+  
+  .modal-close-button:hover {
+    background-color: var(--neutral-border); /* hover:bg-gray-200 */
+  }
+  
+  .dark-mode .modal-close-button:hover {
+    background-color: #4a4a4a; /* dark:hover:bg-gray-700 */
+  }
+  
+  .shortcuts-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* grid-cols-2 equivalent */
+    gap: 8px; /* gap-2 equivalent */
+    margin-bottom: 16px; /* mb-4 equivalent */
+  }
+  
+  .shortcuts-key {
+    font-weight: 500; /* font-medium equivalent */
+    color: var(--primary-color);
+  }
+  
+  .close-modal-button {
+    display: block;
+    width: 100%; /* w-full equivalent */
+    padding: 12px 16px; /* px-3 py-2 equivalent */
+    margin-top: 16px; /* mt-4 equivalent */
+    background-color: var(--primary-color);
+    color: var(--neutral-text);
+    text-align: center;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .close-modal-button:hover {
+    background-color: var(--primary-hover);
+  }
+  
+  /* ========================================== */
+  /*              TRANSLATION PANEL             */
+  /* ========================================== */
+  .translation-overlay {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.3); /* Black with 30% opacity */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 50;
+  }
+  
+  .translation-container {
+    max-width: 800px; /* max-w-2xl equivalent */
+    width: 100%;
+    margin: 0 16px; /* mx-4 equivalent */
+    padding: 16px; /* p-4 equivalent */
+    border-radius: 8px; /* rounded-lg equivalent */
+    background-color: var(--neutral-bg);
+  }
+  
+  .translation-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px; /* mb-4 equivalent */
+  }
+  
+  .translation-heading {
+    font-size: 1.25rem; /* text-xl equivalent */
+    font-weight: bold;
+    color: var(--primary-color);
+  }
+  
+  .translation-close-button {
+    padding: 8px; /* p-1 equivalent */
+    border-radius: 50%; /* rounded-full equivalent */
+    background-color: transparent;
+    transition: background-color 0.3s ease;
+  }
+  
+  .translation-close-button:hover {
+    background-color: var(--neutral-border); /* hover:bg-gray-200 */
+  }
+  
+  .dark-mode .translation-close-button:hover {
+    background-color: #4a4a4a; /* dark:hover:bg-gray-700 */
+  }
+  
+  .translation-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px; /* gap-4 equivalent */
+  }
+  
+  @media (min-width: 768px) {
+    .translation-grid {
+      grid-template-columns: 1fr 1fr; /* md:grid-cols-2 equivalent */
+    }
+  }
+  
+  .translation-section {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .translation-label {
+    margin-bottom: 8px; /* mb-2 equivalent */
+    font-weight: 500; /* font-medium equivalent */
+    color: var(--neutral-dark);
+  }
+  
+  .translation-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px; /* mb-2 equivalent */
+  }
+  
+  .translation-select {
+    font-size: 0.875rem; /* text-sm equivalent */
+    padding: 4px 8px; /* p-1 equivalent */
+    border-radius: 4px;
+    background-color: var(--neutral-bg);
+    color: var(--neutral-dark);
+  }
+  
+  .translation-select:focus {
+    outline: none;
+    border-color: var(--primary-color);
+  }
+  
+  .translation-copy-button {
+    padding: 8px; /* p-1 equivalent */
+    border-radius: 4px; /* rounded equivalent */
+    background-color: transparent;
+    transition: background-color 0.3s ease;
+  }
+  
+  .translation-copy-button:hover {
+    background-color: var(--neutral-border); /* hover:bg-gray-200 */
+  }
+  
+  .dark-mode .translation-copy-button:hover {
+    background-color: #4a4a4a; /* dark:hover:bg-gray-700 */
+  }
+  
+  .translation-textarea {
+    width: 100%;
+    height: 160px; /* h-40 equivalent */
+    padding: 12px; /* p-3 equivalent */
+    border-radius: 8px;
+    resize: none; /* resize-none equivalent */
+    background-color: var(--neutral-bg);
+    color: var(--neutral-dark);
+  }
+  
+  .translation-output {
+    width: 100%;
+    height: 160px; /* h-40 equivalent */
+    padding: 12px; /* p-3 equivalent */
+    border-radius: 8px;
+    overflow-y: auto; /* overflow-auto equivalent */
+    background-color: var(--neutral-bg);
+    color: var(--neutral-dark);
+  }
+  
+  .translation-output-placeholder {
+    color: #a0a0a0; /* text-gray-400 equivalent */
+  }
+  
+  .translation-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 16px; /* mt-4 equivalent */
+  }
+  
+  .translation-cancel-button {
+    padding: 8px 16px; /* px-4 py-2 equivalent */
+    background-color: var(--neutral-border);
+    color: var(--neutral-dark);
+    border-radius: 8px;
+    text-align: center;
+    transition: background-color 0.3s ease;
+  }
+  
+  .translation-cancel-button:hover {
+    background-color: var(--neutral-dark);
+    color: var(--neutral-text);
+  }
+  
+  .translation-translate-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px; /* gap-2 equivalent */
+    padding: 8px 16px; /* px-4 py-2 equivalent */
+    background-color: var(--primary-color);
+    color: var(--neutral-text);
+    border-radius: 8px;
+    text-align: center;
+    transition: all 0.3s ease;
+  }
+  
+  .translation-translate-button:disabled {
+    opacity: 0.5; /* opacity-50 equivalent */
+    cursor: not-allowed; /* cursor-not-allowed equivalent */
+  }
+  
+  .translation-translate-button:hover:not(:disabled) {
+    background-color: var(--primary-hover);
+  }
+  
+  /* ========================================== */
+  /*            VOICE INPUT INDICATOR           */
+  /* ========================================== */
+  .voice-indicator {
+    position: fixed;
+    bottom: 96px; /* bottom-24 equivalent */
+    left: 50%; /* left-1/2 equivalent */
+    transform: translateX(-50%); /* -translate-x-1/2 equivalent */
+    background-color: var(--primary-color); /* bg-blue-500 equivalent */
+    color: var(--neutral-text); /* text-white equivalent */
+    padding: 8px 16px; /* px-4 py-2 equivalent */
+    border-radius: 9999px; /* rounded-full equivalent */
+    display: flex;
+    align-items: center;
+    gap: 8px; /* gap-2 equivalent */
+    animation: pulse 1.5s infinite; /* animate-pulse equivalent */
+    z-index: 40;
+  }
+  
+  /* Keyframes for the pulse animation */
+  @keyframes pulse {
+    0% {
+      opacity: 1;
+      transform: translateX(-50%) scale(1);
+    }
+    50% {
+      opacity: 0.5;
+      transform: translateX(-50%) scale(1.05);
+    }
+    100% {
+      opacity: 1;
+      transform: translateX(-50%) scale(1);
+    }
+  }
