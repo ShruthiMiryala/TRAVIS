@@ -1,0 +1,102 @@
+Docker Commands Overview
+
+docker container → Manage containers (list, stop, remove).
+Example:
+docker container ls → list running containers
+docker container ls -a → list all containers
+docker container stop <container_id> → stop container
+
+docker pull <image> → Download an image from Docker Hub or registry.
+Example: docker pull mongo:6.0
+
+docker run -it <image> → Run a container interactively (with terminal access).
+Example: docker run -it ubuntu:22.04 /bin/bash
+
+docker run -d <image> → Run container in detached mode (background).
+Example: docker run -d nginx
+
+docker run --name <name> -d -p <host>:<container> <image> → Run container in background, assign name, map ports.
+Example: docker run --name hospital_app -d -p 7073:7073 phaniharika/hospital-app:latest
+
+docker ps → List running containers.
+Example: docker ps -a → list all containers
+
+docker stop <container_id or name> → Stop a running container.
+Example: docker stop hospital_app
+
+docker rm <container_id or name> → Remove a container. Must be stopped first.
+Example: docker rm hospital_app
+
+docker rmi <image_name> → Remove an image from local system.
+Example: docker rmi phaniharika/hospital-app:latest
+
+docker build -t <image_name> . → Build a Docker image from Dockerfile in current folder.
+Example: docker build -t phaniharika/hospital-app:latest .
+
+docker logs <container_id or name> → View logs/output of running container.
+Example: docker logs hospital_app
+
+docker tag <image> <username>/<repo>:<tag> → Tag your local image for Docker Hub push.
+Example: docker tag phaniharika/hospital-app:latest phaniharika/hospital-app:latest
+
+docker login → Log in to Docker Hub to push images.
+Example: docker login (enter username/password)
+
+docker push <username>/<image>:<tag> → Push image to Docker Hub.
+Example: docker push phaniharika/hospital-app:latest
+
+docker --version → Check Docker version installed.
+Example: docker --version
+
+docker info → Get detailed info about Docker system.
+Example: docker info
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# 1. Check Docker installation
+docker --version
+docker info
+
+# 2. Build Maven project (create jar)
+mvn clean package
+
+# 3. Build Docker image
+docker build -t phaniharika/hospital-app:latest .
+
+# 4. Run container in background with port mapping
+docker run --name hospital_app -d -p 7073:7073 phaniharika/hospital-app:latest
+
+# 5. Check running container
+docker ps
+
+# 6. Check container logs
+docker logs hospital_app
+
+# 7. Stop container when done
+docker stop hospital_app
+
+# 8. Remove container (optional)
+docker rm hospital_app
+
+# 9. Tag image for Docker Hub
+docker tag phaniharika/hospital-app:latest phaniharika/hospital-app:latest
+
+# 10. Login to Docker Hub
+docker login
+
+# 11. Push image to Docker Hub
+docker push phaniharika/hospital-app:latest
