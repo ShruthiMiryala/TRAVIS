@@ -99,3 +99,39 @@
     </build>
 
 </project>
+
+
+yml...
+
+services:
+  web:
+    image: nginx:latest
+    ports:
+      - "8080:80"
+
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: demo
+      POSTGRES_PASSWORD: demo
+      POSTGRES_DB: demo_db
+
+docker compose up -d
+\\\\\\\\\\\\\\\\\\\\\\
+
+# Use Tomcat 9 as base image
+FROM tomcat:9.0
+
+# Copy your built WAR into Tomcat’s webapps folder
+COPY target/*.war /usr/local/tomcat/webapps/ROOT.war
+
+# Start Tomcat
+CMD ["catalina.sh", "run"]
+
+docker compose up --build -d
+--build → builds the Flask container from Dockerfile.
+
+-d → runs containers in background.
+
+docker compose up -d
+
