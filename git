@@ -1,0 +1,53 @@
+git --version	                                                                             Check installed Git version
+git config --global user.name "Your Name"	                                                 Set your global Git username
+git config --global user.email "email@example.com"	                                       Set your global Git email
+git config --list	                                                                         View current Git configurations
+git init	                                                                                  Create/initialize a new Git repository
+git clone <repo-url>	                                                                      Copy a remote repo to local system
+git remote -v	                                                                              Show connected remote repositories
+git remote add origin <repo-url>	                                                          Link a remote repo to local workspace
+git remote remove <name>	                                                                  Remove remote URL mapping
+git remote rename <old> <new>	Rename a remote
+git remote set-url origin <new-url>	Update remote repository URL
+git remote show origin	View detailed info of remote
+git add <filename>	Stage a file for commit
+git add .	Stage all modified files
+git reset <filename>	Remove file from staging (keep changes)
+git restore --staged <file>	Unstage file with restore command
+git restore <file>	Discard local (unstaged) changes
+git checkout -- <file>	Old method for discarding file changes
+git add <filename>	Stage a file for commit
+git add .	Stage all modified files
+git reset <filename>	Remove file from staging (keep changes)
+git restore --staged <file>	Unstage file with restore command
+git restore <file>	Discard local (unstaged) changes
+git checkout -- <file>	Old method for discarding file changes
+git status	View changed, staged, untracked files
+git log	Show commit history
+git log --oneline --graph --decorate	Visual commit history
+git diff	View unstaged changes difference
+git blame <file>	Show who modified each line
+git branch	List local branches
+git branch -a	List all local + remote branches
+git branch <branch-name>	Create new branch
+git checkout <branch-name>	Switch branches (old way)
+git checkout -b <new-branch>	Create and switch to a new branch
+git switch <branch-name>	                                                            Switch to a branch (new way)
+git switch -c <branch-name>	                                                          Create & switch (new method)
+git branch -d <branch-name>	                                                           Delete only if merged (safe)
+git branch -D <branch-name>	                                                          Force delete even if not merged
+git branch -d <branch-name>	                                                          Delete only if merged (safe)
+git branch -D <branch-name>	                                                          Force delete even if not merged
+git fetch origin	                                                                    Download latest remote updates (no merge)
+git fetch --prune	                                                                    Remove deleted remote branch references
+git pull origin <branch>	Fetch + merge latest changes
+git push origin <branch>	Upload commits to remote branch
+git push -u origin <branch>	First-time push and set tracking
+git add <file>	Mark conflict resolved
+git commit	Complete merge after resolution
+git stash	Save changes without committing
+git stash pop	Restore and delete from stash list
+git stash apply	                                                                     Restore but keep in stash
+git reflog	                                                                         View history of actions (lost commits recovery)
+git checkout <commit-id>	                                                          Restore a previous commit or branch
+git pull --rebase origin <branch>                                                  Update branch while keeping linear history
