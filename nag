@@ -1,0 +1,39 @@
+NAGIOS Step 1: Pull the official Nagios Docker image Run this command in your terminal:
+
+docker pull jasonrivers/nagios:latest
+
+✅ This downloads the Nagios image from Docker Hub. Step 2: Run the Nagios container We need to expose Nagios web ports so you can access the dashboard. Use:
+
+docker run -d --name nagios -p 8080:80 -p 5666:5666 jasonrivers/nagios:latest
+
+-d → run in detached mode -p 8080:80 → maps container port 80 to host port 8080 for the web interface -p 5666:5666 → optional, for NRPE monitoring Step 3: Access Nagios Dashboard Open your browser and go to:
+
+http://localhost:8080
+
+Default login (for this image) is usually: Username: nagiosadmin Password: nagios
+
+You should now see the Nagios web dashboard. Step 4: Verify monitoring Once inside Nagios, you can see: CPU usage Memory usage Service uptime
+
+Step 2: Kubernetes with Minikube (Standalone) Pre-requisites Docker must be running (you already confirmed this). Minikube installed (or download from Minikube ). A Docker image ready (either your own or nginx for testing). 1️⃣ Start Minikube Open PowerShell and run:
+
+minikube start --driver=docker
+
+Wait until Minikube starts. Check status: minikube status
+
+2️⃣ Check deployments kubectl get deployments kubectl get pods
+
+If you don’t have any deployments yet, it’s fine — we’ll create one. 3️⃣ Create a deployment Use your Docker image from Docker Hub (or just use nginx for testing):
+
+kubectl create deployment mynginx --image=nginx
+
+Check pods: kubectl get pods kubectl describe pods
+
+4️⃣ Expose deployment Expose it as a NodePort to access in browser:
+
+kubectl expose deployment mynginx --type=NodePort --port=80 --target-port=80
+
+Check the service: kubectl get services
+
+Access in browser via Minikube: minikube service mynginx
+
+Your nginx page should open.
