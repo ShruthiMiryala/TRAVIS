@@ -1,0 +1,1034 @@
+https://github.com/Achilles007-AD/Services
+https://github.com/KumaraswamyBakkashetti/login-app1/edit/main/requirements.txt
+
+1Q) //SRS
+#  - Abstract
+#  - Functional Requirements (FR)
+#  - Non-Functional Requirements (NFR)
+#  - User Identification
+#  - Workflow of each user (diagrams if needed)
+#  - Use cases
+
+2Q)
+1. You've cloned a repository and made some changes to a local branch. Now you want to push these changes to the remote repository,
+but you're getting an error saying "rejected - non-fast-forward." How would you resolve this?
+This error occurs when the remote branch has changes that your local branch doesn’t. To resolve it:
+git pull --rebase origin <branch-name>
+This rebases your local changes on top of the latest remote changes. After resolving any conflicts, push your changes:
+
+
+2. You’ve been working on a feature branch, and now you need to push it to the remote repository. However, the remote repository already has a main branch.
+How do you push your feature branch without affecting the main branch?
+You can push your feature branch independently:
+git push origin feature/feat-1
+This creates a new remote branch and does not affect the main branch.
+
+
+3. You cloned a remote repository, but after a while, the repository’s structure changed and new branches were added. How would you keep your 
+local repository updated with the latest changes from the remote repository?
+Use the following commands:
+git fetch origin
+This updates your local copy with all branches and changes from the remote. You can then check out new branches using:
+git checkout branch-name
+
+
+4. A colleague has pushed some changes to the main branch, but you have local changes in the same branch. You want to pull their changes,
+but you want to avoid merge conflicts. What steps would you take?
+Use rebase to integrate their changes on top of your work:
+git stash                   # Temporarily store your changes
+git pull --rebase origin main
+git stash pop               # Apply your changes on top
+
+This reduces the chance of conflicts and keeps history clean.
+
+
+5. You accidentally pushed a sensitive file (e.g., API keys) to the remote repository. How would you fix this situation?
+Steps to remove the sensitive data:
+    Remove the file and commit:
+git rm --cached path/to/file
+git commit -m "Remove sensitive file"
+git push origin main
+If the secret is in history, use git filter-branch or BFG Repo-Cleaner to rewrite history:
+    git filter-branch --force --index-filter \
+    "git rm --cached --ignore-unmatch path/to/file" \
+    --prune-empty --tag-name-filter cat -- --all
+    Force push and rotate the secret.
+
+6. You’re working on a feature branch, and your manager requests that you integrate the latest changes from main into your feature branch.
+What steps would you take?
+Use rebase or merge:
+Rebase:
+git checkout feature/your-feature
+git fetch origin
+git rebase origin/main
+
+
+7. You cloned a remote repository, but later you find that you need to push your changes to a different remote repository. 
+How do you configure your local repository to push to this new remote?
+Then push your changes:
+git push origin branch-name
+
+
+8. After running git pull, you notice that your local branch is behind the remote branch. How would you proceed to bring your local branch up to date 
+without losing your local changes?
+Use stash or rebase:
+git stash
+git pull --rebase origin branch-name
+git stash pop
+This ensures a clean rebase and retains your changes.
+
+
+9. You’re working on a project with multiple collaborators, and you notice that your local changes conflict with changes that have been
+pushed by others. How would you resolve the conflicts?
+    Pull the latest changes:
+git pull origin branch-name
+Git will highlight conflicts. Open the files, manually resolve the <<<<<<<, =======, and >>>>>>> markers.
+Mark as resolved and commit:
+    git add .
+    git commit
+
+
+10. You’ve pushed a feature branch to a remote repository, but now you need to delete the branch from the remote. How would you do that?
+Use the following command:
+git push origin --delete feature/branch-name
+This will remove the branch from the remote repository.
+
+
+3Q)
+git config --global --list
+git remote set url origin url_here
+git restore file.txt
+git seset file1.txt
+
+
+4Q) 
+***********************filter type:org.apache.maven **********************
+//java application
+->just create a java application ,push to git and build and show them
+//web application
+->create a web application,push to git and we have to do run as server here and show them
+example pom.xml file
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>org.example1</groupId>
+  <artifactId>webapp1</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <packaging>war</packaging>
+
+  <name>webapp1 Maven Webapp</name>
+  <!-- FIXME change it to the project's website -->
+  <url>http://www.example.com</url>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.compiler.source>8</maven.compiler.source>
+    <maven.compiler.target>8</maven.compiler.target>
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.13.1</version>
+      <scope>test</scope>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/javax.servlet/servlet-api -->
+	<dependency>
+	    <groupId>javax.servlet</groupId>
+	    <artifactId>servlet-api</artifactId>
+	    <version>2.5</version>
+	    <scope>provided</scope>
+	</dependency>
+
+  </dependencies>
+
+  <build>
+    <finalName>webapp1</finalName>
+    <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
+      <plugins>
+        <plugin>
+          <artifactId>maven-clean-plugin</artifactId>
+          <version>3.4.0</version>
+        </plugin>
+        <!-- see http://maven.apache.org/ref/current/maven-core/default-bindings.html#Plugin_bindings_for_war_packaging -->
+        <plugin>
+          <artifactId>maven-resources-plugin</artifactId>
+          <version>3.3.1</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <version>3.13.0</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-surefire-plugin</artifactId>
+          <version>3.3.0</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-war-plugin</artifactId>
+          <version>3.4.0</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-install-plugin</artifactId>
+          <version>3.1.2</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-deploy-plugin</artifactId>
+          <version>3.1.2</version>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+  </build>
+</project>
+
+
+5Q)Installing Docker and Setting up Nginx
+In this task, we used Docker to run an Ubuntu container, install nginx inside it, and serve a customized homepage
+Docker should be opened in background
+->pull ubuntu page
+docker pull ubuntu:latest
+->run the container
+docker run -it -p 9090:80 --name myapp ubuntu:latest
+root@123454565432:/#  is generated
+apt update
+apt install nginx
+apt install nano
+cd var/www/html
+ls
+you will find html page , here change some content in it 
+nano index.html
+close the file
+just type -> nginx
+open the web browser and check the results
+
+
+
+6Q)
+DOCKER IMAGE CREATION:
+Image can be created in two ways:
+1.	Using Docker commit
+2.	Using docker file
+
+***********: Created a new container of ubuntu so image can be   created on that container*************
+→ docker run -it -p 9050:80 --name ubuntu-cont-1 ubuntu:latest
+                                   /*container name*/
+→ apt update
+come back to path from root
+
+***********: Using commit the image is being created*************
+→ docker commit ubuntu-cont-1 img-commit-1
+              /*container we   /* name of image
+              created */         we are creating*/
+→ docker images
+→ docker run -it img-commit-1
+   (root opens here)
+   (exit from root )
+→ Go to dockerhub & login
+   create a repo named "img-commit-1"
+→ docker tag img-commit-1 ruthwik5/img-commit-1
+→ docker push ruthwik5/img-commit-1
+
+*********Image creation using docker file *************
+→ mkdir img-creation
+→ cd img-creation       
+→ echo print("hello world") > app.py
+→ notepad Dockerfile
+write below content & save it .
+**Dockerfile content start**
+FROM python:3.9
+COPY app.py .
+CMD ["python","app.py"]
+**Dockerfile content end**
+→ ren Dockerfile.txt Dockerfile //renaming
+→ docker build -t img-dockerfile-1
+                    /*we can give
+                     any name here*/
+go to dockerhub & creat repo named  "img-dockerfile-1"            
+→ docker tag img-dockerfile-1 ruthwik5/img-dockerfile-1
+→ docker push ruthwik5/img-dockerfile-1:latest
+
+
+*************Docker compose file :*******************
+→ docker pull nginx
+→ docker pull tomee
+→ docker run -d -p 8010:80 nginx
+→ docker run -d -p 8020:80 tomee  
+then go to services & stop
+jenkins & again run the
+same command if we can't see 8020 result
+
+→ mkdir compose
+→ cd compose
+→ notepad Dockerfile
+Dockerfile content start
+services:
+  web:
+    image: nginx
+    ports:
+      - "8060:80"
+  db:
+    image: tomee
+    ports:
+      - "8050:8080"
+DOckerfile content end
+→ ren Dockerfile.txt docker-compose.yml
+→ docker-compose up -d
+then open the port stored in yml in web browser
+u will see the results 
+
+
+****************Word -Press****************
+→ mkdir my-sql
+→ cd mysql
+→ code .
+→ create docker-compose.yml & paste code &
+   save it
+docker-compose.yml content start
+version: '3.8'
+
+services:
+  db:
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wordpress
+      MYSQL_PASSWORD: wordpress
+    volumes:
+      - db_data:/var/lib/mysql
+
+  wordpress:
+    image: wordpress:latest
+    restart: always
+    ports:
+      - "9081:80"
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_PASSWORD: wordpress
+      WORDPRESS_DB_NAME: wordpress
+    depends_on:
+      - db
+
+volumes:
+  db_data:
+docker-compose.yml content end
+→ come back to powershell
+→ docker compose up -d
+
+
+**********************Flask App***************************
+→ mkdir flask
+→ cd flask
+→ create files app.py, Dockerfile, docker-compose.yml & copy their codes
+//app.py
+from flask import Flask
+app = Flask(__name__)
+@app.route("/")
+def home():
+    return "Hello from 23db1a058a- Ruthwik"
+
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=5000)
+
+//Dockerfile
+FROM python:3.10-slim
+WORKDIR /app
+COPY app.py /app/
+RUN pip install flask
+CMD ["python", "app.py"]
+
+
+//docker-compose.yml
+version: "3.9"
+services:
+  web:
+    build: .
+    ports:
+      - "5000:5000"
+    depends_on:
+      - db
+
+  db:
+    image: mysql:8.0
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: mydb
+    ports:
+      - "3308:3306"
+→ docker compose up --build ,
+open port 5000 and check result
+
+
+7Q)same as 4th qn
+
+8Q)Jenkins Automation
+//jenkins
+===== JENKINS JOB: maven-my-app =====
+
+Project Type:
+  freestyle project
+
+GIT:
+  add url
+  */main
+
+===== BUILD STEPS =====
+1) Invoke top-level Maven targets
+     MAVEN_HOME
+     Goals: clean
+
+2) Invoke top-level Maven targets
+     MAVEN_HOME
+     Goals: install
+
+===== POST BUILD ACTION =====
+Archive the artifacts:
+     **/*
+
+===== POST BUILD ACTION =====
+Build other projects:
+     maven-test    (next one name)
+
+===== SAVE =====
+Triggered only if build is stable
+
+*************************************************
+
+===== NEW ITEM =====
+Name: maven-test
+Type: Freestyle project
+OK
+
+SCM:
+  None
+
+===== ENVIRONMENT =====
+Delete workspace before build starts
+
+===== ADD BUILD STEPS =====
+1) Copy artifacts from other projects
+       (this is a plugin, install if not available)
+       Specify project name (the one we built earlier)
+       Artifacts to copy: **/*
+
+2) Invoke top-level Maven targets
+       MAVEN_HOME
+       Goals: test
+
+===== POST BUILD ACTION =====
+Archive the artifacts (plugin)
+       Files: **/*
+
+===== POST BUILD ACTION =====
+Build other projects (plugin)
+       Project: maven-deploy  (next one in chain)
+
+===== SAVE =====
+
+***********************************************************************
+===== NEW ITEM =====
+Name: maven-deploy
+Type: Freestyle project
+
+Select None
+
+Environment:
+  Delete workspace before starts
+
+===== ADD BUILD STEPS =====
+Copy artifacts from another project
+  Project: maven-test
+  Artifacts to copy: **/*
+
+maven-test
+
+Artifact to copy:
+  **/*
+
+===== POST-BUILD =====
+Deploy war/ear to a container (plugin)
+
+WAR/EAR Files:
+  **/*.war
+
+Context path:
+  <our wish name>
+
+Add containers:
+  Tomcat 9.x remote
+
+Tomcat URL:
+  http://localhost:8081/    (changed and use)
+
+===== CREDENTIALS =====
+admin / ******   → that I gave
+Save
+
+===== RUN MY-APP =====
+Run my-app
+  test + deploying will run automatically
+
+
+*****************************************************
+9Q)Pipeline Creation using script
+===== NEW ITEM =====
+pipeline
+ type: pipeline
+OK
+
+===== SCRIPT FILE =====
+Paste code
+Save
+
+Build Now
+//script file code start
+pipeline {
+    agent any
+
+    tools {
+        // Use Maven configured in Jenkins
+        maven "MAVEN_HOME"
+    }
+
+    stages {
+
+        stage('Clean Workspace') {
+            steps {
+                deleteDir()
+            }
+        }
+
+        stage('Git Clone & Clean') {
+            steps {
+                bat "git clone https://github.com/Bharath-chandra997/maven_webproject"
+                bat "mvn clean -f maven_webproject/pom.xml"
+            }
+        }
+
+        stage('Install') {
+            steps {
+                bat "mvn install -f maven_webproject/pom.xml"
+            }
+        }
+
+        stage('Test') {
+            steps {
+                bat "mvn test -f maven_webproject/pom.xml"
+            }
+        }
+
+        stage('Package') {
+            steps {
+                bat "mvn package -f maven_webproject/pom.xml"
+            }
+        }
+    }
+}
+//script file code end
+
+10Q)minikube and nagios
+
+//Working with Minikube (Nginx Service Deployment)	
+minikube start
+minikube status
+
+kubectl create deployment nginx-deploy --image=nginx
+kubectl get pods
+
+kubectl expose deployment nginx-deploy --port=80 --target-port=80
+kubectl get svc
+
+kubectl port-forward svc/nginx-deploy 8090:80
+# Open browser: http://localhost:8090
+
+# New Terminal
+kubectl get pods
+kubectl get svc
+
+q3
+//Monitoring Tool – Nagios
+docker pull jasonrivers/nagios
+docker run --name nagios -d -p 8080:80 jasonrivers/nagios
+docker ps
+
+# If "name already in use"
+docker rm -f nagios
+
+# If port is in use
+netstat -ano | findstr :8080
+taskkill /PID <PID> /F
+
+# Alternative port
+docker run --name nagios -d -p 8090:80 jasonrivers/nagios
+
+
+//user name = nagiosadmin
+//password = nagios
+
+
+11Q) jenkins CI/CD (email and webhooks
+
+//email notification
+open : https://myaccount.google.com/apppasswords =>generate password
+
+✅ Part 1 — Configure Email Notification in a Job
+Create a new job → choose Freestyle project
+Name the job
+Scroll to Post-build actions
+Enable Email Notification
+Add Recipient email (example: chandala.ruthwik@gmail.com)
+Save the job and build it
+
+✅ Part 2 — Global SMTP Configuration (Email Notification Heading)
+Manage Jenkins → System → Email Notification
+Open Manage Jenkins
+Open System
+Scroll to Email Notification section
+Fill these:
+SMTP Server:
+smtp.gmail.com
+Advanced:
+Username: your Gmail
+Password: 16-digit generated app password
+Use SSL: enabled
+SMTP Port:465
+Reply-To Address: your Gmail
+Test:
+Enter any valid recipient email
+Click Test configuration
+
+✅ Part 3 — Extended Email Notification Section
+Fill these:
+SMTP Server:smtp.gmail.com
+SMTP Port:465
+Use SSL: enabled
+Credentials:
+Add your Gmail + App Password (16-digit)
+Defaults:
+Default content type: text / html / leave default
+Default recipients: leave empty or add emails
+=>Triggers you can enable:
+Always
+Failure – Any
+Failure – X
+Status changed
+Success
+Test improvement
+Test regression
+Unstable (test failure)
+Failure → Success
+
+
+//WEBHOOKS
+
+in cmd type:
+ngrok.exe http 8080
+
+take the forwarding url from it
+1)Create the Jenkins job ->in the source code management select the git and enter git repo url and make sure the branch is same (*/main)
+2)In the triggers section select “Github hook trigger for GITScm polling”
+3)click on apply and save
+4)open the git hub repo open setting of repo and then go to webhooks
+5)Click on add a webhook and take the forwarding URL from ngrok and paste in payload URL and add /github-webhook/ along with the forwarding url
+Forwarding URL: https://corkier-darla-handsome.ngrok-free.dev
+Payload url: https://corkier-darla-handsome.ngrok-free.dev/github-webhook/
+6) make changes in the files in github
+7)click on commit changes
+automatically it will build itself
+
+
+12Q) AWS
+//AWS SHORTCUT
+click on Module
+scroll & clk launch lab
+start lab
+click on AWS (green color)
+click on EC2 (in recently visited)
+Launch instance
+🗹 give name
+click on ubuntu
+create new keypair & set
+(RSA
+& .pem)
+In network settings
+click on create security group
+Allow SSH & HTTPS & HTTP
+then click on launch instance
+then click on green color
+click on connect
+go to SSH client
+copy SSH example.
+go to .pem file downloaded folder
+— through cmd
+paste the copied one & click on enter
+tap yes.
+(Ubuntu opened)
+-->type the below commands
+sudo apt update -y
+sudo apt install docker.io -y
+sudo systemctl start docker
+sudo systemctl enable docker
+docker --version
+sudo apt install git -y
+git --version
+
+-->then run below commands.
+cd ~
+git clone https://github.com/kumaraswamybakkashetti/login-app2.git
+cd login-app2
+ls
+
+-->then run below commands
+nano Dockerfile
+paste the below one & save
+FROM nginx:alpine
+COPY . /usr/share/nginx/html
+EXPOSE 80
+SAVE THE FILE
+
+-->then run below commands in CMD
+sudo docker build -t loginapp
+sudo docker run -d -p 80:80 --name hello-name loginapp
+(it gives success)
+then go to AWS page
+copy public IPV4 address
+& open new tab & paste
+***********YOUR APPLICATION IS LIVE NOW***********
+
+
+************************************************************************************************
+Title: Deploying a Static Login HTML Page on AWS EC2 Using Docker (Step-by-Step)
+
+NOTE: This file explains every step in detail. You can follow it like a lab manual.
+
+--------------------------------------------------
+1. PREREQUISITES
+--------------------------------------------------
+1. You have:
+   - An AWS account (can be Free Tier)
+   - A laptop/PC with internet
+   - Your GitHub repository URL:
+     https://github.com/KumaraswamyBakkashetti/login-app2
+
+2. You will:
+   - Launch an Ubuntu EC2 instance
+   - Connect to it using SSH
+   - Install Docker and Git
+   - Clone your GitHub repo (single HTML login page)
+   - Create a Docker image using Nginx
+   - Run a container and access the page through EC2 public IP
+
+--------------------------------------------------
+2. LOGIN TO AWS CONSOLE
+--------------------------------------------------
+1. Open your web browser (Chrome/Edge/Firefox).
+2. Go to: https://aws.amazon.com/console/
+3. Click on "Sign in to the Console".
+4. Select "Root user" (if it's your main AWS account).
+5. Enter your AWS account email and click "Next".
+6. Enter your password and click "Sign in".
+7. After login, check the region at the top-right (near your name).
+   - Choose a nearby region, for example:
+     "Asia Pacific (Mumbai) ap-south-1".
+
+--------------------------------------------------
+3. LAUNCH AN EC2 INSTANCE (UBUNTU)
+--------------------------------------------------
+1. On the AWS console home page, in the search bar at the top, type: EC2
+2. Click on "EC2" from the search results.
+3. You are now on the EC2 Dashboard.
+4. Click the orange button "Launch instance".
+
+You will now fill the "Launch an instance" form:
+
+(A) Name and tags:
+   - In the "Name" box, type:
+     ubuntu-login-app
+
+(B) Application and OS Images (AMI):
+   - Under "Application and OS Images (Amazon Machine Image)",
+     click on the dropdown or search bar.
+   - Type: Ubuntu
+   - Select:
+     "Ubuntu Server 22.04 LTS (HVM), SSD Volume Type (Free tier eligible)"
+
+(C) Instance type:
+   - Ensure "Instance type" is set to:
+     t2.micro  (Free Tier eligible)
+
+(D) Key pair (login):
+   - This is very important. It is used for SSH.
+   - Under "Key pair (login)", click:
+     "Create new key pair".
+   - Key pair name: my-ec2-key
+   - Key pair type: RSA
+   - Private key file format: .pem
+   - Click on "Create key pair".
+   - A file named "my-ec2-key.pem" will be downloaded to your
+     Downloads folder (or default download location).
+
+(E) Network settings:
+   - VPC: leave as default (example: vpc-xxxxxxxx).
+   - Subnet: leave as "No preference (Default subnet in any Availability Zone)".
+   - Auto-assign public IP: Ensure this is set to "Enable".
+
+(F) Firewall (security groups):
+   - Under "Firewall (security groups)", ensure:
+     "Create security group" is selected.
+   - Security group name can be default like: launch-wizard-1
+   - Description: can be left as default.
+
+   - Inbound security group rules:
+     There should be some rules listed. Configure them as follows:
+
+     Rule 1 (SSH):
+       - Type: SSH
+       - Protocol: TCP
+       - Port range: 22
+       - Source: My IP (recommended)
+       This allows you to connect via SSH from your current machine.
+
+     Rule 2 (HTTP):
+       - Click "Add security group rule".
+       - Type: HTTP
+       - Protocol: TCP
+       - Port range: 80
+       - Source: Anywhere (0.0.0.0/0)
+       This will allow web browsers to access your site.
+
+     Rule 3 (HTTPS) (optional but OK to keep if present):
+       - Type: HTTPS
+       - Port: 443
+       - Source: Anywhere (0.0.0.0/0)
+
+(G) Storage:
+   - Leave default: 8 GiB gp3 (root volume).
+
+(H) Final launch:
+   - Scroll to the bottom of the page.
+   - Click the orange button "Launch instance".
+   - After a few seconds, you should see "Success" at the top with
+     a message that your instance is launching.
+   - Click "View all instances".
+
+--------------------------------------------------
+4. GET THE PUBLIC IP OF YOUR EC2 INSTANCE
+--------------------------------------------------
+1. On the EC2 "Instances" page, you will see a list of instances.
+2. Find the row with the Name: ubuntu-login-app.
+3. Check:
+   - "Instance state" is "running".
+   - "Status check" shows "2/2 checks passed".
+4. Look at the "Public IPv4 address" column.
+   - It will look like: 3.110.25.120 (example).
+5. Copy this IP address somewhere (Notepad, etc.).
+   - You will use it for SSH and in the browser.
+
+--------------------------------------------------
+5. CONNECT TO EC2 USING SSH (FROM WINDOWS)
+--------------------------------------------------
+1. On your Windows machine, press Windows key, type: PowerShell
+2. Click on "Windows PowerShell" to open it.
+3. Go to the folder where your .pem key was downloaded.
+   If it is in Downloads, type:
+
+   cd $HOME\Downloads
+   dir
+
+   You should see the file: my-ec2-key.pem
+
+4. Now use SSH command to connect (replace <PUBLIC-IP> with your real IP):
+
+   ssh -i "my-ec2-key.pem" ubuntu@<PUBLIC-IP>
+
+   Example:
+   ssh -i "my-ec2-key.pem" ubuntu@3.110.25.120
+
+5. The first time, it will ask:
+
+   Are you sure you want to continue connecting (yes/no/[fingerprint])?
+
+   Type: yes
+   Press Enter.
+
+6. If successful, your prompt will change to something like:
+
+   ubuntu@ip-172-31-xx-xx:~$
+
+   This means you are now inside your EC2 Ubuntu instance.
+
+--------------------------------------------------
+6. INSTALL DOCKER AND GIT ON EC2
+--------------------------------------------------
+Run the following commands one by one in the EC2 terminal
+(the one that shows ubuntu@...):
+
+1. Update package list:
+2. Install Docker:
+3. Start Docker service:
+4. Enable Docker to start on boot:
+5. Verify Docker installation:
+6. Install Git:
+7. Verify Git:
+
+ sudo apt update -y
+ sudo apt install docker.io -y
+ sudo systemctl start docker
+ sudo systemctl enable docker
+ docker --version
+ sudo apt install git -y
+ git --version
+
+--------------------------------------------------
+7. CLONE YOUR GITHUB REPOSITORY (STATIC HTML + JENKINSFILE)
+--------------------------------------------------
+1. Ensure you are in the home directory:
+2. Clone your GitHub repo using:
+3. Move into the project directory:
+3. Move into the project directory:
+4. List files to confirm:
+
+cd ~
+git clone https://github.com/KumaraswamyBakkashetti/login-app2.git
+cd login-app2
+ls
+
+   You should see your HTML file (for example: index.html or login.html)
+   and Jenkinsfile, etc.
+
+--------------------------------------------------
+8. CREATE DOCKERFILE FOR STATIC HTML USING NGINX
+--------------------------------------------------
+We will use Nginx to serve your static HTML file inside a Docker container.
+
+1. Inside the login-app2 directory, create a Dockerfile:
+2. The nano editor will open. Type or paste the following content:
+3. Save the Dockerfile:
+4. Confirm the file exists:
+
+nano Dockerfile
+FROM nginx:alpine
+COPY . /usr/share/nginx/html
+EXPOSE 80
+
+
+   - Press: Ctrl + O
+   - Press: Enter (to confirm file name)
+   - Press: Ctrl + X (to exit nano)
+
+
+
+   ls
+
+   You should see "Dockerfile" in the list.
+
+--------------------------------------------------
+9. BUILD THE DOCKER IMAGE
+--------------------------------------------------
+1. From inside the login-app2 directory, run:
+
+sudo docker build -t loginapp .
+sudo docker run -d -p 80:80 --name loginapp-container loginapp
+
+   Explanation:
+   - "loginapp" is the name (tag) of the Docker image.
+   - "." means the current directory is the build context.
+
+2. This will download nginx:alpine and copy your files.
+   Wait until you see a message similar to:
+
+   Successfully tagged loginapp:latest
+
+--------------------------------------------------
+10. RUN THE DOCKER CONTAINER
+--------------------------------------------------
+1. After the image is built, run a container mapping port 80:
+
+   sudo docker run -d -p 80:80 --name loginapp-container loginapp
+
+   Explanation:
+   - "-d" runs the container in detached mode (in the background).
+   - "-p 80:80" maps EC2 port 80 to container port 80.
+   - "--name loginapp-container" gives the container a name.
+   - "loginapp" is the image name.
+
+2. Check if the container is running:
+
+   sudo docker ps
+
+   You should see a line with:
+   IMAGE: loginapp
+   PORTS: 0.0.0.0:80->80/tcp
+   STATUS: Up ...
+
+--------------------------------------------------
+11. ACCESS THE LOGIN PAGE FROM YOUR BROWSER
+--------------------------------------------------
+1. On your local machine (laptop/PC), open a web browser.
+2. In the address bar, type:
+
+   http://<PUBLIC-IP>/
+
+   Replace <PUBLIC-IP> with the EC2 public IP you copied earlier.
+   Example:
+   http://3.110.25.120/
+
+3. Press Enter.
+4. You should now see your login HTML page served from the EC2 instance
+   via Docker and Nginx.
+
+--------------------------------------------------
+12. EXPECTED OUTPUTS / WHAT TO CAPTURE FOR REPORT
+--------------------------------------------------
+For assignment or project submission, you can capture:
+
+1. EC2 instance details:
+   - Screenshot of the EC2 Instances page showing:
+     - Instance ID
+     - Instance state: running
+     - Public IPv4 address
+
+2. SSH connection:
+   - Screenshot of the PowerShell window showing successful SSH login.
+
+3. Docker and Git installation:
+   - Screenshot showing "docker --version" and "git --version" outputs.
+
+4. Git clone:
+   - Screenshot showing "git clone ..." and "ls" with your HTML file listed.
+
+5. Docker build:
+   - Screenshot showing "sudo docker build -t loginapp ." and final success line.
+
+6. Running container:
+   - Screenshot of "sudo docker ps" showing loginapp-container running
+     with port 80 mapped.
+
+7. Browser access:
+   - Screenshot of browser with URL:
+     http://<PUBLIC-IP>/
+     and your login page visible.
+
+--------------------------------------------------
+13. SUMMARY (FOR WRITING IN EXAM / REPORT)
+--------------------------------------------------
+- Launched an Ubuntu EC2 instance (t2.micro, Ubuntu 22.04) with a
+  security group allowing SSH (22) and HTTP (80) traffic.
+- Connected to the instance using SSH and the downloaded .pem key.
+- Installed Docker and Git on the instance using apt package manager.
+- Cloned the GitHub repository containing a static login HTML page
+  and a Jenkinsfile.
+- Created a Dockerfile using nginx:alpine as the base image to serve
+  the static HTML content.
+- Built a Docker image from the project files and ran a container,
+  mapping host port 80 to container port 80.
+- Accessed the deployed login page from a web browser using the
+  EC2 instance's public IP address, confirming successful deployment.
+
+End of file.
