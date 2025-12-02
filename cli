@@ -103,10 +103,7 @@ docker run --name myredis -d budarajumadhurika/redis1
 
 Step 16: Access Redis CLI
 docker exec -it myredis redis-cli
-
-
 Inside Redis:
-
 SET name "Abcdef"
 GET name
 exit
@@ -119,3 +116,111 @@ docker stop myredis
 docker rm myredis
 docker images
 docker rmi budarajumadhurika/redis1
+
+-------------------------------------------------------------
+jenkins
+A — Common UI actions
+Open Jenkins → New Item (left menu)
+Enter job name → choose Freestyle project → OK
+Configure → Source Code Management: Git → paste repo URL → set Branches to build (*/main or */master)
+Build steps → Add build step → Invoke top-level Maven targets → select MAVEN_HOME → set Goals (clean, install, test, etc.)
+Post-build → choose actions like Archive the artifacts, Build other projects, Deploy WAR/EAR to a container
+Save → Build Now or use pipeline view to run flows
+
+B — MAVENJAVA: Pipeline (quick steps)
+1. MavenJava_Build (Freestyle)
+Name: MavenJava_Build
+Description: Java Build demo
+SCM: Git → [GitMavenJava repo URL]
+Branches: */main or */master
+Build Steps:
+Maven (MAVEN_HOME) → Goals: clean
+Maven (MAVEN_HOME) → Goals: install
+Post-build:
+Archive the artifacts → */
+Build other projects → MavenJava_Test (Trigger: Only if build is stable)
+Save
+
+2. MavenJava_Test (Freestyle)
+Name: MavenJava_Test
+
+Description: Test demo
+Build Environment: Check “Delete the workspace before build starts”
+Build Steps:
+Copy artifacts from another project
+Project name: MavenJava_Build
+Build: Stable build only
+Artifacts to copy: */
+Maven (MAVEN_HOME) → Goals: test
+Post-build:
+Archive the artifacts → */
+Save
+
+3. Pipeline View
+Dashboard → click + next to “All”
+Name: MavenJava_Pipeline
+Type: Build pipeline view
+Initial job: MavenJava_Build
+Apply & Save
+4. Run & Verify
+In pipeline view → click Run on initial job
+Monitor build console logs and artifacts
+Check that MavenJava_Test runs after MavenJava_Build when stable
+
+C — MAVENWEB: Pipeline (quick steps)
+1. MavenWeb_Build (Freestyle)
+Name: MavenWeb_Build
+Description: Web Build demo
+SCM: Git → [GitMavenWeb repo URL]
+Branches: */main or */master
+Build Steps:
+Maven (MAVEN_HOME) → Goals: clean
+Maven (MAVEN_HOME) → Goals: install
+Post-build:
+Archive the artifacts → */
+Build other projects → MavenWeb_Test (Trigger: Only if build is stable)
+Save
+
+2. MavenWeb_Test (Freestyle)
+Name: MavenWeb_Test
+Description: Test demo
+Build Environment: Check “Delete the workspace before build starts”
+Build Steps:
+Copy artifacts from another project
+Project name: MavenWeb_Build
+Build: Stable build only
+Artifacts to copy: */
+Maven (MAVEN_HOME) → Goals: test
+Post-build:
+Archive the artifacts → */
+Build other projects → MavenWeb_Deploy
+Save
+
+3. MavenWeb_Deploy (Freestyle)
+Name: MavenWeb_Deploy
+Description: Web Code Deployment
+Build Environment: Check “Delete the workspace before build starts”
+Build Steps:
+Copy artifacts from another project
+Project name: MavenWeb_Test
+Build: Stable build only
+Artifacts to copy: */
+Post-build:
+Deploy WAR/EAR to a container
+WAR/EAR File: */.war
+Context path: Webpath
+Add container → Tomcat 9.x remote
+Credentials: Username admin, Password 1234
+Tomcat URL: https://localhost:8085/
+Save
+
+4. Pipeline View (Web)
+Dashboard → click +
+Name: MavenWeb_Pipeline
+Type: Build pipeline view
+Initial job: MavenWeb_Build
+Apply & Save
+
+5. Run & Verify
+In pipeline view → click RUN on the pipeline
+After pipeline completes, open Tomcat manager → visit https://localhost:8085/ → click /webpath to view deployed app
